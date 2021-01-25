@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
 import Tab from "./Tab";
+import Tab2 from "./Tab2";
 import { withCookies } from 'react-cookie';
 
 /**
@@ -28,6 +29,7 @@ class App extends React.Component {
         <Route exact path="/privacy" component={Privacy} />
         <Route exact path="/termsofuse" component={TermsOfUse} />
         <Route exact path="/tab" render={() => (<Tab cookies={this.props.cookies} />)} />
+        <Route exact path="/test" render={() => (<Tab2 cookies={this.props.cookies} />)} />
       </Router>
     );
   }

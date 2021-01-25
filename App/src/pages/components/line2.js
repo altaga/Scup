@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 
 var options = "";
 
-class LineGraph extends React.Component {
+class LineGraph2 extends React.Component {
 
   constructor(props) {
     super(props);
@@ -22,8 +22,8 @@ class LineGraph extends React.Component {
       scales: {
         yAxes: [{
           ticks: {
-            suggestedMax: this.props.max,
-            suggestedMin: this.props.min
+            max: this.props.max,
+            min: this.props.min
           }
         }]
       },
@@ -65,4 +65,4 @@ class LineGraph extends React.Component {
   }
 }
 
-export default LineGraph;
+export default LineGraph2;
