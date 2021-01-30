@@ -27,10 +27,10 @@ function arrayContains(needle, arrhaystack) {
 
 function apiCall(device, counter, pat) {
     var unirest = require('unirest');
-    unirest('GET', 'https://sensors-deploy-apim.azure-api.net/sensors-deploy/tempSimulator?name=' + device + '&ecgframe=' + counter + "&pat=" + pat)
+    unirest('GET', 'https://xxxxxxxxxxxxxxxxxxxxxxxx' + device + '&ecgframe=' + counter + "&pat=" + pat)
         .headers({
-            'Host': 'sensors-deploy-apim.azure-api.net',
-            'Ocp-Apim-Subscription-Key': 'b48f0a9f62994183b92cf12be0ecf04e',
+            'Host': 'xxxxxxxxxxxxxxxxxxxxxx',
+            'Ocp-Apim-Subscription-Key': 'xxxxxxxxxxxxxxxxxxxxxxx',
             'Ocp-Apim-Trace': 'true'
         })
         .end(function (res) {

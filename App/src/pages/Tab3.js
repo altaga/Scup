@@ -144,9 +144,9 @@ class Tab3 extends React.Component {
                 <div style={{ padding: "1%" }}>
                     <IotReciever
                         callback={this.callbackFunction}
-                        eventHubConsumerGroup={"ConsumerGroupIoT"}
-                        eventHubEndpoint={"Endpoint=sb://iothub-ns-iot-hub-mo-7500432-40ed126299.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=1PXO0tERraEC8gasBHhXaK5The0p7n6RwZ6q+twarMw=;EntityPath=iot-hub-monitor-1"}
-                    />
+                        eventHubConsumerGroup={"xxxxxxxxxxxxxx"}
+                        eventHubEndpoint={"Endpoint=sb://xxxxxxxxxxxxxxxxxxx;SharedAccessKeyName=xxxxxxxxxxxxxxxxx;SharedAccessKey=xxxxxxxxxxxxxxxxxx;EntityPath=xxxxxxxxxxxxx"}
+                      />
                     <Row>
                         <Col>
                             <Row md="1">
@@ -229,9 +229,9 @@ class Tab3 extends React.Component {
                 <div style={{ padding: "1%" }}>
                     <IotReciever
                         callback={this.callbackFunction}
-                        eventHubConsumerGroup={"ConsumerGroupIoT"}
-                        eventHubEndpoint={"Endpoint=sb://iothub-ns-iot-hub-mo-7500432-40ed126299.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=1PXO0tERraEC8gasBHhXaK5The0p7n6RwZ6q+twarMw=;EntityPath=iot-hub-monitor-1"}
-                    />
+                        eventHubConsumerGroup={"xxxxxxxxxxxxxx"}
+                        eventHubEndpoint={"Endpoint=sb://xxxxxxxxxxxxxxxxxxx;SharedAccessKeyName=xxxxxxxxxxxxxxxxx;SharedAccessKey=xxxxxxxxxxxxxxxxxx;EntityPath=xxxxxxxxxxxxx"}
+                      />
                     <Row>
                         <Col>
                             <Row md="1">

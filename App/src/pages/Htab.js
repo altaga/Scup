@@ -132,11 +132,11 @@ class Htab extends React.Component {
         }
         var unirest = require('unirest');
         let _this = this
-        unirest('GET', 'https://cosmoswr-apim.azure-api.net/cosmoswr/HttpTrigger1?name=' +
+        unirest('GET', 'https://xxxxxxxxxxxxxxxxxxxxxx' +
             event.target.value + '&oper=read')
             .headers({
-                'Host': 'cosmoswr-apim.azure-api.net',
-                'Ocp-Apim-Subscription-Key': 'ef9531e9f1ef4d6e89f1d8418956ac7e',
+                'Host': 'xxxxxxxxxxxxxx.net',
+                'Ocp-Apim-Subscription-Key': 'xxxxxxxxxxxxxxxxx',
                 'Ocp-Apim-Trace': 'true'
             })
             .end(function (res) {
