@@ -3,7 +3,6 @@
 
 import React from 'react';
 import './App.css';
-import * as microsoftTeams from "@microsoft/teams-js";
 import { Avatar, Flex } from '@fluentui/react-northstar'
 import { Col, Row, Card, CardBody, Form, FormGroup, Input, CardTitle, CardText } from 'reactstrap';
 import {
@@ -21,17 +20,19 @@ import p1 from './patients/1.jpg';
 import p2 from './patients/2.PNG';
 import p3 from './patients/3.PNG';
 import p4 from './patients/4.PNG';
-import p5 from './patients/5.png';
+import p5 from './patients/5.PNG';
 
 import TabsNav from "./components/tabs"
 
 import IotReciever from "azure-reactjs-iot-hub-receiver/dist/iotreceiver"
 
+import * as microsoftTeams from "@microsoft/teams-js";
+
 var images = [p1, p2, p3, p4, p5]
-const numbers = ["Patients", "Victor Altamirano", "Charlie Boy", "Millie Gates", "Pickle Rick"];
-const age = [Number.NaN, 26, 65, 56, 70];
-const height = [Number.NaN, 5.4, 6.2, 6.4, 7.1];
-const weight = [Number.NaN, 178, 150, 174, 175];
+const numbers = ["Patients", "Andrea Altamirano", "Satya Nadella", "Millie Gates", "Charlie Boy"];
+const age = [Number.NaN, 21, 65, 56, 70];
+const height = [Number.NaN, 4.9, 5.9, 6.4, 7.1];
+const weight = [Number.NaN, 99, 165, 174, 175];
 
 function arrayContains(needle, arrhaystack) {
   return arrhaystack.indexOf(needle);
@@ -45,6 +46,8 @@ function cround(num) {
     return Math.round((num + Number.EPSILON) * 100) / 100
   }
 }
+
+var flag = [false, false, false]
 
 var Fili = require('fili');
 
@@ -105,10 +108,51 @@ class Tab extends React.Component {
       s: "+",
       sd1sd2: "+",
       br: "+",
-      gray: 1
+      gray: 1,
+      templabel: "F°",
+      weightlabel: "lb",
+      heightlabel: "ft",
+      bmi: "+",
+      range1: 42 * 1.8 + 32,
+      range2: 35 * 1.8 + 32
     }
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  toogleSI() {
+    let arrayTemp = []
+    if (this.state.weightlabel === "lb") {
+      for (let i = 0; i < this.state.data3.length; i++) {
+        arrayTemp.push((this.state.data3[i] - 32) / 1.8)
+      }
+      this.setState({
+        weightlabel: "kg",
+        weights: cround(this.state.weights * 0.453592, 2),
+        heightlabel: "m",
+        heights: cround(this.state.heights * 0.3048, 2),
+        templabel: "°C",
+        temper: cround((this.state.temper - 32) / 1.8),
+        range1: 42,
+        range2: 35,
+        data3: arrayTemp
+      });
+    }
+    else {
+      for (let i = 0; i < this.state.data3.length; i++) {
+        arrayTemp.push(this.state.data3[i] * 1.8 + 32)
+      }
+      this.setState({
+        weightlabel: "lb",
+        weights: cround(this.state.weights / 0.453592, 2),
+        heightlabel: "ft",
+        heights: cround(this.state.heights / 0.3048, 2),
+        templabel: "°F",
+        temper: cround((this.state.temper * 1.8) + 32),
+        range1: 42 * 1.8 + 32,
+        range2: 35 * 1.8 + 32,
+        data3: arrayTemp
+      });
+    }
   }
 
   checkEKG() {
@@ -129,10 +173,10 @@ class Tab extends React.Component {
       console.log('{"data":"' + tempdata + '"}')
 
       var unirest = require('unirest');
-      unirest('POST', 'https://xxxxxxxxxxxxxxxxxxxxx.net/ecg-api/ECG')
+      unirest('POST', 'https://ecg-api-apim.azure-api.net/ecg-api/ECG')
         .headers({
-          'Host': 'xxxxxxxxxxxxxxxxxxxxx.net',
-          'Ocp-Apim-Subscription-Key': 'xxxxxxxxxxxxxxxx',
+          'Host': 'ecg-api-apim.azure-api.net',
+          'Ocp-Apim-Subscription-Key': '3cf915c4ea62435b956ddea285609efb',
           'Ocp-Apim-Trace': 'true'
         })
         .send('{"data":"' + tempdata + '"}')
@@ -193,11 +237,11 @@ class Tab extends React.Component {
   componentDidMount() {
     // Get the user context from Teams and set it in the state
     microsoftTeams.getContext((context, error) => {
-      console.log(context)
       this.setState({
         context: context
       });
     })
+
     setInterval(() => {
       if (this.state.memory1.length > 5000) {
         this.setState({
@@ -205,7 +249,41 @@ class Tab extends React.Component {
         })
       }
     }, 5000);
-    // Next steps: Error handling using the error object
+
+    setInterval(() => { this.toCosmoDB() }, 60000);
+  }
+
+  toCosmoDB() {
+    const temp = arrayContains(this.state.value, numbers)
+    if (flag[1] && flag[2] && temp !== 0) {
+      let temperature;
+      if(this.state.temper>50)
+      {
+        temperature=cround((this.state.temper-32)/1.8);
+      }
+      else{
+        temperature=this.state.temper;
+      }
+      var unirest = require('unirest');
+      unirest('GET', 'https://cosmoswr-apim.azure-api.net/cosmoswr/HttpTrigger1?name=' +
+        this.state.value +
+        ',' + this.state.bpm +
+        ',' + this.state.vars[1] +
+        ',' + temperature +
+        '&oper=write')
+        .headers({
+          'Host': 'cosmoswr-apim.azure-api.net',
+          'Ocp-Apim-Subscription-Key': 'ef9531e9f1ef4d6e89f1d8418956ac7e',
+          'Ocp-Apim-Trace': 'true'
+        })
+        .end(function (res) {
+          if (res.error) throw new Error(res.error);
+          console.log(res.raw_body);
+        });
+    }
+    else {
+      console.log("Not Yet :3")
+    }
   }
 
   callbackFunction = (childData) => {
@@ -215,9 +293,9 @@ class Tab extends React.Component {
     var total = 0
     var avg = 0
     var i = ""
-    console.log(parseInt(childData[0].body.pat))
-    console.log(parseInt(this.state.patient))
+
     if (childData[0].systemProperties["iothub-connection-device-id"] === "ecg") {
+      flag[0] = true
       var temp = childData[0].body.data
       if (temp.length === 1) {
         temp = childData[0].body.data[0]
@@ -267,7 +345,8 @@ class Tab extends React.Component {
       }
     }
     else if (childData[0].systemProperties["iothub-connection-device-id"] === "satO") {
-      const temp = childData[0].body.data
+      flag[1] = true
+      const temp = childData[0].body.data[0]
       if (parseInt(childData[0].body.pat) === parseInt(this.state.patient)) {
         indata = this.state.data2
         inserie = this.state.series2
@@ -292,18 +371,24 @@ class Tab extends React.Component {
             vars: [this.state.vars[0], avg, this.state.vars[2]],
             data2: indata.slice(0, 10),
             series2: inserie.slice(0, 10),
+            bpm:childData[0].body.data[1]
           }
         )
 
       }
     }
     else if (childData[0].systemProperties["iothub-connection-device-id"] === "temp") {
+      flag[2] = true
       const temp = childData[0].body.data
       if (parseInt(childData[0].body.pat) === parseInt(this.state.patient)) {
         indata = this.state.data3
         inserie = this.state.series3
-
-        indata.push(temp)
+        if(this.state.weightlabel==="lb"){
+          indata.push(temp * 1.8 + 32)
+        }
+        else{
+          indata.push(temp)
+        }
         inserie.push(".")
         if (indata.length > 10) {
           indata.shift()
@@ -316,10 +401,8 @@ class Tab extends React.Component {
         for (i = 0; i < indata.length; i++) {
           total += parseFloat(indata[i]);
         }
-        avg = total / indata.length;
+        avg = (total / indata.length);
         avg = Math.round((avg + Number.EPSILON) * 100) / 100
-
-
 
         this.setState(
           {
@@ -332,30 +415,36 @@ class Tab extends React.Component {
     }
   }
 
-
   handleChange(event) {
     const temp = arrayContains(event.target.value, numbers)
-    this.setState({
-      value: event.target.value,
-      imag: images[temp],
-      ages: age[temp],
-      heights: height[temp],
-      weights: weight[temp],
-      patient: temp,
-      data1: [],
-      datamem1: [],
-      series1: [],
-      memory1: [],
-      data2: [],
-      series2: [],
-      data3: [],
-      series3: [],
-    });
-  }
+    if (temp === 0) {
 
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
+    }
+    else {
+      flag = [false, false, false]
+      this.setState({
+        value: event.target.value,
+        weightlabel: "lb",
+        heightlabel: "ft",
+        templabel: "°F",
+        imag: images[temp],
+        ages: age[temp],
+        heights: height[temp],
+        weights: weight[temp],
+        patient: temp,
+        data1: [],
+        datamem1: [],
+        series1: [],
+        memory1: [],
+        data2: [],
+        series2: [],
+        data3: [],
+        series3: [],
+        bmi: cround(703 * weight[temp] / Math.pow(height[temp] * 12, 2)),
+        range1: 42 * 1.8 + 32,
+        range2: 35 * 1.8 + 32
+      });
+    }
   }
 
   render() {
@@ -367,7 +456,7 @@ class Tab extends React.Component {
         <IotReciever
           callback={this.callbackFunction}
           eventHubConsumerGroup={"ConsumerGroupIoT"}
-          eventHubEndpoint={"Endpoint=sb://xxxxxxxxxxxxxxxxx.servicebus.windows.net/;SharedAccessKeyName=xxxxxxxxxxxx;SharedAccessKey=xxxxxxxxxxxxxxxxxxxx=;EntityPath=xxxxxxxxxxxxxxx"}
+          eventHubEndpoint={"Endpoint=sb://iothub-ns-iot-hub-mo-7500432-40ed126299.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=1PXO0tERraEC8gasBHhXaK5The0p7n6RwZ6q+twarMw=;EntityPath=iot-hub-monitor-1"}
         />
         <Row>
           <Col>
@@ -425,15 +514,15 @@ class Tab extends React.Component {
                   <CardBody>
                     <Row >
                       <Col xs="3" className="d-flex justify-content-around">
-                        <img src={TEMP} alt="Logo" />
+                        <img onClick={() => this.toCosmoDB()} src={TEMP} alt="Logo" />
                       </Col>
                       <Col xs="7">
-                        <LineGraph2 max={42} min={35} data={[this.state.data3, this.state.series3]} />
+                        <LineGraph2 max={this.state.range1} min={this.state.range2} data={[this.state.data3, this.state.series3]} />
                       </Col>
                       <Col xs="2">
                         <Row md="1" className="h5" >
                           <Col className="d-flex justify-content-around">
-                            Temp °F
+                            Temp {this.state.templabel}
                           </Col>
                           <Col className="d-flex justify-content-around h1">
                             {this.state.temper}
@@ -513,7 +602,7 @@ class Tab extends React.Component {
                 </FormGroup>
               </CardBody>
             </Card>
-            <Card>
+            <Card onClick={() => this.toogleSI()}>
               <CardBody>
                 <Row md="4" className="h5">
                   <Col>
@@ -526,7 +615,7 @@ class Tab extends React.Component {
                   </Col>
                   <Col>
                     <Col>
-                      Height [ft]
+                      Height [{this.state.heightlabel}]
                     </Col>
                     <Col>
                       {this.state.heights}
@@ -534,7 +623,7 @@ class Tab extends React.Component {
                   </Col>
                   <Col>
                     <Col>
-                      Weight [lb]
+                      Weight [{this.state.weightlabel}]
                     </Col>
                     <Col>
                       {this.state.weights}
@@ -546,7 +635,7 @@ class Tab extends React.Component {
                     </Col>
                     <Col>
                       {
-                        cround(703 * this.state.weights / Math.pow(this.state.heights * 12, 2))
+                        this.state.bmi
                       }
                     </Col>
                   </Col>

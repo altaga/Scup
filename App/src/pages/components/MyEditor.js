@@ -32,7 +32,7 @@ class MyEditor extends React.Component {
                         const data = content;
                         if (this.props.patient !== 0) {
                             console.log(typeof(data))
-                            cookies.set('text' + this.props.patient, data, { path: '/tab' });
+                            cookies.set('text' + this.props.patient, data, { path: '/tabs' });
                             this.setState({
                                 mydata: data
                             })

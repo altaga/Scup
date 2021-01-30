@@ -25,6 +25,7 @@
         "fili": "^2.0.3",
         "jodit-react": "^1.0.70",
         "react": "^16.14.0",
+        "react-calendar": "^3.3.0",
         "react-chartjs-2": "^2.11.1",
         "react-charts": "^2.0.0-beta.7",
         "react-cookie": "^4.0.3",

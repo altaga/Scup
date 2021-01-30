@@ -10,6 +10,8 @@ import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
 import Tab from "./Tab";
 import Tab2 from "./Tab2";
+import Tab3 from "./Tab3";
+import Htab from "./Htab";
 import { withCookies } from 'react-cookie';
 
 /**
@@ -28,8 +30,10 @@ class App extends React.Component {
       <Router>
         <Route exact path="/privacy" component={Privacy} />
         <Route exact path="/termsofuse" component={TermsOfUse} />
-        <Route exact path="/tab" render={() => (<Tab cookies={this.props.cookies} />)} />
         <Route exact path="/test" render={() => (<Tab2 cookies={this.props.cookies} />)} />
+        <Route exact path="/patient" render={() => (<Tab3 />)} />
+        <Route exact path="/tabs" render={() => (<Tab cookies={this.props.cookies} />)} />
+        <Route exact path="/history" render={() => (<Htab cookies={this.props.cookies} />)} />
       </Router>
     );
   }

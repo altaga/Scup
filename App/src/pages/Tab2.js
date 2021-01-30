@@ -16,10 +16,10 @@ import p1 from './patients/1.jpg';
 import p2 from './patients/2.PNG';
 import p3 from './patients/3.PNG';
 import p4 from './patients/4.PNG';
-import p5 from './patients/5.png';
+import p5 from './patients/5.PNG';
 
 var images = [p1, p2, p3, p4, p5]
-const numbers = ["Patients", "Victor Altamirano", "Charlie Boy", "Millie Gates", "Pickle Rick"];
+const numbers = ["Patients", "Andrea Altamirano","Satya Nadella", "Millie Gates", "Charlie Boy"];
 
 function arrayContains(needle, arrhaystack) {
     return arrhaystack.indexOf(needle);
@@ -27,10 +27,10 @@ function arrayContains(needle, arrhaystack) {
 
 function apiCall(device, counter, pat) {
     var unirest = require('unirest');
-    unirest('GET', 'https://xxxxxxxxxxxxxxxxx.azure-api.net/sensors-deploy/tempSimulator?name=' + device + '&ecgframe=' + counter + "&pat=" + pat)
+    unirest('GET', 'https://sensors-deploy-apim.azure-api.net/sensors-deploy/tempSimulator?name=' + device + '&ecgframe=' + counter + "&pat=" + pat)
         .headers({
-            'Host': 'xxxxxxxxxxx.azure-api.net',
-            'Ocp-Apim-Subscription-Key': 'xxxxxxxxxxxxxxxxx',
+            'Host': 'sensors-deploy-apim.azure-api.net',
+            'Ocp-Apim-Subscription-Key': 'b48f0a9f62994183b92cf12be0ecf04e',
             'Ocp-Apim-Trace': 'true'
         })
         .end(function (res) {
@@ -115,6 +115,7 @@ class Tab2 extends React.Component {
 
     componentDidMount() {
         microsoftTeams.getContext((context, error) => {
+            
             console.log(context)
             this.setState({
                 context: context
