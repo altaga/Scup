@@ -1,0 +1,59 @@
+{
+    "name": "microsoft-teams-ext",
+    "version": "0.1.0",
+    "msteams": {
+        "teamsAppId": "491a4811-7cfc-4225-a9c1-81d18ecb81f2"
+    },
+    "private": true,
+    "dependencies": {
+        "@azure/event-hubs": "^5.3.1",
+        "@ckeditor/ckeditor5-basic-styles": "^24.0.0",
+        "@ckeditor/ckeditor5-build-classic": "^24.0.0",
+        "@ckeditor/ckeditor5-editor-classic": "^24.0.0",
+        "@ckeditor/ckeditor5-essentials": "^24.0.0",
+        "@ckeditor/ckeditor5-paragraph": "^24.0.0",
+        "@ckeditor/ckeditor5-react": "^3.0.0",
+        "@ckeditor/ckeditor5-upload": "^24.0.0",
+        "@fluentui/react-northstar": "^0.49.0",
+        "@microsoft/teams-js": "^1.6.0",
+        "azure-iot-device": "^1.17.3",
+        "azure-iot-device-amqp": "^1.13.3",
+        "azure-iot-device-mqtt": "^1.15.3",
+        "azure-reactjs-iot-hub-receiver": "^1.0.4",
+        "bootstrap": "^4.5.3",
+        "chart.js": "^2.9.4",
+        "fili": "^2.0.3",
+        "jodit-react": "^1.0.70",
+        "react": "^16.14.0",
+        "react-calendar": "^3.3.0",
+        "react-chartjs-2": "^2.11.1",
+        "react-charts": "^2.0.0-beta.7",
+        "react-cookie": "^4.0.3",
+        "react-device-detect": "^1.15.0",
+        "react-dom": "^16.14.0",
+        "react-fast-charts": "^1.1.51",
+        "react-router-dom": "^5.1.2",
+        "react-scripts": "3.4.1",
+        "reactstrap": "^8.8.1",
+        "suneditor-react": "^2.15.0",
+        "unirest": "^0.6.0"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "full": "react-scripts build && aws s3 sync build/ s3://monitor-teams --acl public-read && aws cloudfront create-invalidation --distribution-id E1EPO2XEXW03C4 --paths \"/*\"",
+        "eject": "react-scripts eject"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
