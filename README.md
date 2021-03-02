@@ -1,220 +1,128 @@
 # Smart-Check-up:
 
-Telemedicine smart platform with integration to IoT devices that provides vital signs in real-time.
+Smart telemedicine platform, based on IoT devices that provide Vital signs and historical values. This to transform the way telemedicine is provided and solve the biggest problem in relation to distance check-ups, which is taking biometrics.
+Our current version consists of an Oxygen Saturation Thimble, an ECG sensor and a contactless Thermometer that can send real time information to a Teams application. This allowing distance consultations and follow ups to become more seamless and to grab a real biometrics and vital signs while doing them. 
 
 - [Smart-Check-up:](#smart-check-up)
-- [Introduction:](#introduction)
-- [Solution:](#solution)
-- [Materials:](#materials)
-- [Connection Diagram:](#connection-diagram)
-- [Laptop Test:](#laptop-test)
-  - [Environment Creation:](#environment-creation)
-    - [Pytorch](#pytorch)
-    - [Dependencies](#dependencies)
-    - [Jupyter Notebook](#jupyter-notebook)
-- [Summary and mini demos:](#summary-and-mini-demos)
-  - [Drowsiness Monitor:](#drowsiness-monitor)
-  - [Driving Monitor:](#driving-monitor)
-  - [Emotion Monitor:](#emotion-monitor)
-- [Jetson Nano Setup:](#jetson-nano-setup)
-- [The Final Product:](#the-final-product)
-    - [Epic DEMO:](#epic-demo)
-- [Commentary:](#commentary)
-  - [References:](#references)
+- [Test the platform:](#test-the-platform)
+  - [Test Monitor Tab:](#test-monitor-tab)
+    - [Test IoT Devices:](#test-iot-devices)
+    - [Test Summary SubTab:](#test-summary-subtab)
+    - [Test Report SubTab:](#test-report-subtab)
+    - [Test Additional Notes SubTab:](#test-additional-notes-subtab)
+    - [Test Past Reports SubTab:](#test-past-reports-subtab)
+    - [Test ECG Details SubTab:](#test-ecg-details-subtab)
+    - [Test Eng/SI Button:](#test-engsi-button)
+  - [Test Historical Tab:](#test-historical-tab)
+- [Video Demo:](#video-demo)
 
+# Test the platform:
 
-# Introduction:
+## Test Monitor Tab:
 
-<img src="IMAGEN1" width="1000">
+### Test IoT Devices:
 
-<img src="IMAGEN2" width="1000">
+La aplicacion esta dividida en 2 secciones, la seccion de monitor y la seccion de historial.
 
-<img src="IMAGEN3" width="1000">
+para poder testear el monitor, porfavor entrar al siguiente enlace.
 
-# Solution:
+https://react-deploy-monitor.azurewebsites.net/tabs
 
-Creamos una App para Microsoft Teams que se basa en una plataforma IoT de monitoreo en tiempo real de los pacientes durante sus consultas. 
+<img src="Images/1.png" width="1000">
 
-<img src="https://i.gifer.com/origin/7d/7d5a3e577a7f66433c1782075595f4df_w200.gif" width="1000">
+Debido a que la aplicacion requiere tener los sensores colocados, creamos un simulador el cual permite simular los 3 sensores sobre un paciente real.
 
-<img src="https://thumbsnap.com/s/Wy5w7JPR.jpg?1205" width="600">
+https://react-deploy-monitor.azurewebsites.net/test
 
+<img src="Images/2.png" width="1000">
 
-<img src="https://i.ibb.co/xX4G7Yd/dondraper-car.gif" width="1000">
+Para poder usar el simulador tendremos que seleccionar un paciente de la lista desplegable y activar el sensor que deseemos como se muestra en el gif.
 
-Current Solutions:
+<img src="Images/1.gif" width="1000">
 
+Una vez hecho esto, podremos ver los datos en la plataforma empezar a aparecer al seleccionar el paciente que estamos simulando, para este ejemplo sera Victor Altamirano.
 
+<img src="Images/2.gif" width="1000">
 
-# Materials:
+Ya que hemos podido simular los datos de los sensores en tiempo real, podemos pasar a revisar cada una de las caracteristicas de la pagina web.
 
-Hardware:
-- ESP32.                                            x3.
-https://www.adafruit.com/product/3405
-- Ad8232 EKG sensor.                                            x1.
-https://www.amazon.com/-/es/m%C3%B3dulo-ad8232-ECG-Medici%C3%B3n-Coraz%C3%B3n-Vigilancia/dp/B0722Y8YC6?language=en_US
-- MAX30102 Blood Oxygen Concentration Sensor.                                          x1.
-https://www.amazon.com/dp/B07SVYDX9M/ref=cm_sw_em_r_mt_dp_-9KdGb2VVX9A9
-- MLX90614ESF Non-contact Infrared Temperature Sensor Module. x1.
-https://www.amazon.com/dp/B071VF2RWM/ref=cm_sw_em_r_mt_dp_c.KdGbEJHN5BB
+### Test Summary SubTab:
 
-Software:
-- Microsoft Teams:
-https://www.microsoft.com/en-us/microsoft-teams/group-chat-software/
-- ReactJS:
-https://reactjs.org/
-- VScode:
-https://code.visualstudio.com/
-    - Extension:
-  https://marketplace.visualstudio.com/items?itemName=TeamsDevApp.ms-teams-vscode-extension
+Al seleccionar un paciente podremos ver sus datos en summary, estos datos pueden ser editados por el medico en cualquier momento, pruebe cambiar algun dato y al actualizar la pagina web los cambios se mantendran.
 
-Azure Services:
+<img src="Images/3.png" width="1000">
 
-- Azure DevOps:
-https://azure.microsoft.com/en-us/services/devops/
-- API Management:
-https://azure.microsoft.com/en-us/services/api-management/
-- App Service:
-https://azure.microsoft.com/en-us/services/app-service/
-- Azure IoT Hub:
-https://azure.microsoft.com/en-us/services/iot-hub/
-- Azure Functions:
-https://azure.microsoft.com/en-us/services/functions/
+### Test Report SubTab:
 
-# Connection Diagram:
+Los datos de reporte, los cuales estan basados en el formato SOAP son escritos durante la consulta, y al terminar de escribirlos al apretar el boton de submit este se subira a nuestra base de datos para su posterior deslpiegue.
 
-This is the connection diagram of the system:
+<img src="Images/4.png" width="1000">
 
-<img src="https://i.ibb.co/Bqq3p6b/Esquema.png" width="1000">
+Una vez el dato haya sido enviado correctamente a la base de datos saldra una alerta que el dato ha sido subido correctamente.
 
-# Laptop Test:
+<img src="Images/5.png" width="1000">
 
-To test the code on a computer, the first step will be to have a python environments manager, such as Python Anaconda.
+NOTA: Mire bien los datos y fecha del reporte que en la pestaña de PastReports mostraremos como este reporte de ha guardado.
 
-https://www.anaconda.com/distribution/
+### Test Additional Notes SubTab:
 
-## Environment Creation:
+Si el medico lo cree conveniente, este puede agregar notas adicionales a este formato con tal de adecuarse mas a sus necesidades.
 
-### Pytorch
+<img src="Images/6.png" width="1000">
 
-First we will create a suitable enviroment for pytorch.
+### Test Past Reports SubTab:
 
-    conda create --name pytorch
+Cuando seleccionamos un paciente de la lista desplegable, los datos de sus reportes pasados son cargados a la pagina, asi que aun si no hemos subido reporte del paciente, estaran disponibles los reportes pasados. 
 
-To activate the enviroment run the following command:
+<img src="Images/7.png" width="1000">
 
-    activate pytorch
+En este caso al seleccionar el ultimo reporte, podemos ver que es el ultimo reporte que mostramos en [Test Report SubTab](#test-report-subtab)
 
-In the case of Anaconda the PyTorch page has a small widget that allows you to customize the PyTorch installation code according to the operating system and the python environment manager, in my case the configuration is as follows.
+<img src="Images/8.png" width="1000">
 
-https://pytorch.org/
+### Test ECG Details SubTab:
 
-<img src="https://i.ibb.co/6RMJp5F/image.png" width="800">
+Esta pestaña para ser probada es necesario que simulemos en sensor de ECG en el simulador mencionado en [Test IoT Devices](#test-iot-devices) debido a que requerimos que la plataforma tenga almenos 10 - 20 segundos de informacion de ECG para poder realizar el analisis de el mismo.
 
-    conda install pytorch torchvision cudatoolkit=10.2 -c pytorch
-    
-### Dependencies
-    
-The other packages we need are the following:
+Para Realizar el analisis tendremos que esperar que el boton en la imagen, cambie de gris.
 
-    pip install opencv-python matplotlib tqdm python-vlc Pillow
-    
-Anyway we attach the file requirements.txt where all packages come in our environment.
+<img src="Images/9.png" width="1000">
 
-### Jupyter Notebook
+A color rojo.
 
-Inside the **Drowsiness**, **Emotion detection** and **YoloV3** folders, you will find a file "Notebook.ipynb" which contains the code to run the programs in jupyter notebook, however I attach in each folder a file called "notebook.py" with the code in format **. py **.
+<img src="Images/10.png" width="1000">
 
-    conda install -c conda-forge notebook
+Una vez que este listo presionaremos el boton y esperaremos a que el analisis se complete correctamente, esto puede tomar algunos segundos, puede seguir trabajando en la plataforma mientras sale la notificacion.
 
-Command to start jupyter notebook
+<img src="Images/11.png Pendiente" width="1000">
 
-    jupyter notebook
+### Test Eng/SI Button:
 
-# Summary and mini demos:
+Debido a que buscamos que esta aplicacion sea una aplicacion se uso internacional, colocamos un boton para cambiar de sistema ingles a sistema internacional de medida, para visualizar los datos de Altura, Peso y Temperatura en sus formatos correspondientes.
 
-All the demos that we are going to show are executed from a jupyter notebook and are focused on showing the functionality of the AI models, the demo with the hardware is shown at the end of the repository. [Demo](#epic-demo)
+Cabe mencionar que esta fue una de las caracteristicas mas apreciadas por los sujetos de prueba en nuestro Alpha.
 
-## Drowsiness Monitor:
+| Eng System       | Int System    |
+| ---------------- | ------------- |
+| Fahrenheit [°F]  | Celsius [°C]  |
+| Feet [ft]        | Meter [m]     |
+| Pound [lb]       | Kilogram [kg] |
 
-La funcion de esta modelo es realizar una deteccion de distraccion o cerrado de ojos del conductor por mas de 2 segundos o esta distraido del camino (ejemplo, mirando el celular).
+Ejemplo:
 
-<img src="https://i.ibb.co/sQVStkj/Esquema-3.png" width="1000">
+<img src="Images/3.gif" width="1000">
 
-Details: https://github.com/altaga/DBSE-monitor/blob/master/Drowsiness
+## Test Historical Tab:
+
+Para probar esta tab es necesario que entre al siguiente enlace.
+
+https://react-deploy-monitor.azurewebsites.net/history
+
+En este caso para esta tab lo unico que tendremos que hacer sera seleccionar al paciente que queremos observar sus datos y empezar a navegar en el calendario.
+
+<img src="Images/4.gif" width="1000">
+
+# Video Demo:
 
 Video: Click on the image
-[![Torch](https://i.ibb.co/4mx4LPK/Logo.png)](https://youtu.be/dircJ37T0fs)
-
-## Driving Monitor:
-
-La funcion de esta modelo es realizar una deteccion objetos que esten a menos de 3 metros del auto en el punto ciego.
-
-<img src="https://i.ibb.co/Xpd9rs8/Esquema-2.png" width="1000">
-
-Details: https://github.com/altaga/DBSE-monitor/blob/master/YoloV3
-
-Video: Click on the image
-[![Torch](https://i.ibb.co/4mx4LPK/Logo.png)](https://youtu.be/95eDav-Smks)
-
-## Emotion Monitor:
-
-La funcion de esta modelo es detectar las emociones del conductor en todo momento y mediante respuestas musicales (canciones) tratar de corregir el estado mental de el conductor con el fin de mantenerlo neutral o feliz.
-
-<img src="https://i.ibb.co/dkfMKh7/Esquema-5.png" width="1000">
-
-Details: https://github.com/altaga/DBSE-monitor/blob/master/Emotion%20detection
-
-Video: Click on the image
-[![Torch](https://i.ibb.co/4mx4LPK/Logo.png)](https://youtu.be/BWWdUta6gsY)
-
-# Jetson Nano Setup:
-
-The setup process to run everything on the jetson nano are in this folder:
-
-https://github.com/altaga/DBSE-monitor/tree/master/Jetson
-
-
-# The Final Product:
-
-Product:
-
-<img src="https://i.ibb.co/hK6Y0pM/68747470733a2f2f692e6962622e636f2f674a42346636522f32303230303231302d3231323731342e6a7067.jpg" width="800">
-<img src="https://i.ibb.co/WFKx2DC/68747470733a2f2f692e6962622e636f2f393974436d74382f57686174732d4170702d496d6167652d323032302d30332d31.jpg" width="800">
-
-Product installed inside the car:
-
-<img src="https://i.ibb.co/yQgJGfk/Whats-App-Image-2020-03-16-at-14-03-07-1.jpg" width="800">
-<img src="https://i.ibb.co/hXvWmbf/68747470733a2f2f692e6962622e636f2f364a356a5342352f57686174732d4170702d496d6167652d323032302d30332d31.jpg" width="800"> 
-
-Notifications:
-
-<img src="https://i.ibb.co/VNWzJ37/Screenshot-20200210-212306-Messages.jpg" width="600">
-
-### Epic DEMO:
-
-Video: Click on the image
-[![Car](https://i.ibb.co/4mx4LPK/Logo.png)](https://youtu.be/rNhcBHKiGik)
-
-Sorry github does not allow embed videos.
-
-# Commentary:
-
-I would consider the product finished as we only need a little of additional touches in the industrial engineering side of things for it to be a commercial product. Well and also a bit on the Electrical engineering perhaps to use only the components we need. That being said this functions as an upgrade from a project that a couple friends and myself are developing and It was ideal for me to use as a springboard and develop the idea much more. This one has the potential of becoming a commercially available option regarding Smart cities as the transition to autonomous or even smart vehicles will take a while in most cities.
-
-That middle ground between the Analog, primarily mechanical-based private transports to a more "Smart" vehicle is a huge opportunity as the transition will take several years and most people are not able to afford it. Thank you for reading.
-
-## References:
-
-Links:
-
-(1) https://medlineplus.gov/healthysleep.html
-
-(2) http://www.euro.who.int/__data/assets/pdf_file/0008/114101/E84683.pdf
-
-(3) https://dmv.ny.gov/press-release/press-release-03-09-2018
-
-(4) https://www.nhtsa.gov/risky-driving/drowsy-driving
-
-(5) https://www.nhtsa.gov/risky-driving/speeding
-
+[![Demo](Images/15.png)](https://youtu.be/ncT_ejb2VKo)
