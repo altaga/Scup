@@ -22,85 +22,84 @@ Our current version consists of an Oxygen Saturation Thimble, an ECG sensor and 
 
 ### Test IoT Devices:
 
-La aplicacion esta dividida en 2 secciones, la seccion de monitor y la seccion de historial.
+The application is divided into two sections, the monitor section and the history section.
 
-para poder testear el monitor, porfavor entrar al siguiente enlace.
+In order to test the monitor, please enter the following link:
 
 https://react-deploy-monitor.azurewebsites.net/tabs
 
 <img src="Images/1.png" width="1000">
 
-Debido a que la aplicacion requiere tener los sensores colocados, creamos un simulador el cual permite simular los 3 sensores sobre un paciente real.
+Because the application requires having the sensors in place, we created a simulator which allows us to simulate the three sensors on a real patient.
 
 https://react-deploy-monitor.azurewebsites.net/test
 
 <img src="Images/2.png" width="1000">
 
-Para poder usar el simulador tendremos que seleccionar un paciente de la lista desplegable y activar el sensor que deseemos como se muestra en el gif.
+In order to use the simulator we will have to select a patient from the drop-down list and activate the sensor we want as shown in the gif.
 
 <img src="Images/1.gif" width="1000">
 
-Una vez hecho esto, podremos ver los datos en la plataforma empezar a aparecer al seleccionar el paciente que estamos simulando, para este ejemplo sera Victor Altamirano.
+Once this is done, we can see the data on the platform begin to appear when we select the patient we are simulating, for this example it will be Victor Altamirano.
 
 <img src="Images/2.gif" width="1000">
 
-Ya que hemos podido simular los datos de los sensores en tiempo real, podemos pasar a revisar cada una de las caracteristicas de la pagina web.
+Since we have been able to simulate the data from the sensors in real time, we can go on to review each of the characteristics of the website.
 
 ### Test Summary SubTab:
 
-Al seleccionar un paciente podremos ver sus datos en summary, estos datos pueden ser editados por el medico en cualquier momento, pruebe cambiar algun dato y al actualizar la pagina web los cambios se mantendran.
+When selecting a patient we will be able to see their data in summary, this data can be edited by the doctor at any time. Try also to change some data and when updating the web page the changes will be maintained.
 
 <img src="Images/3.png" width="1000">
 
 ### Test Report SubTab:
 
-Los datos de reporte, los cuales estan basados en el formato SOAP son escritos durante la consulta, y al terminar de escribirlos al apretar el boton de submit este se subira a nuestra base de datos para su posterior deslpiegue.
+The report data, which is based on the SOAP format, are written during the query. When you finish writing them, as you press the submit button, it will be uploaded to our database for later removal.
 
 <img src="Images/4.png" width="1000">
 
-Una vez el dato haya sido enviado correctamente a la base de datos saldra una alerta que el dato ha sido subido correctamente.
+Once the data has been correctly sent to the database, an alert will appear that the data has been uploaded correctly.
 
 <img src="Images/5.png" width="1000">
 
-NOTA: Mire bien los datos y fecha del reporte que en la pestaña de PastReports mostraremos como este reporte de ha guardado.
+NOTE: Take a good look at the data and date of the report that in the PastReports tab we will show how this report has been saved.
 
 ### Test Additional Notes SubTab:
 
-Si el medico lo cree conveniente, este puede agregar notas adicionales a este formato con tal de adecuarse mas a sus necesidades.
+If the doctor sees fit, he can add additional notes to this format in order to better suit your needs.
 
 <img src="Images/6.png" width="1000">
 
 ### Test Past Reports SubTab:
 
-Cuando seleccionamos un paciente de la lista desplegable, los datos de sus reportes pasados son cargados a la pagina, asi que aun si no hemos subido reporte del paciente, estaran disponibles los reportes pasados. 
+When we select a patient from the drop-down list, the data from their past reports is uploaded to the page, so even if we have not uploaded a patient report, the past reports will be available.
 
 <img src="Images/7.png" width="1000">
 
-En este caso al seleccionar el ultimo reporte, podemos ver que es el ultimo reporte que mostramos en [Test Report SubTab](#test-report-subtab)
+In this case, when selecting the last report, we can see that it is the last report that we show in [Test Report SubTab] (# test-report-subtab)
 
 <img src="Images/8.png" width="1000">
 
 ### Test ECG Details SubTab:
 
-Esta pestaña para ser probada es necesario que simulemos en sensor de ECG en el simulador mencionado en [Test IoT Devices](#test-iot-devices) debido a que requerimos que la plataforma tenga almenos 10 - 20 segundos de informacion de ECG para poder realizar el analisis de el mismo.
-
-Para Realizar el analisis tendremos que esperar que el boton en la imagen, cambie de gris.
+This tab is necessary to simulate the ECG sensor in the simulator mentioned in [Test IoT Devices](# test-iot-devices) because we require the platform to have at least 10 - 20 seconds of ECG information to be able to perform its analysis.
+To perform the analysis we will have to wait for the button in the image to change from gray...
 
 <img src="Images/9.png" width="1000">
 
-A color rojo.
+To red.
 
 <img src="Images/10.png" width="1000">
 
-Una vez que este listo presionaremos el boton y esperaremos a que el analisis se complete correctamente, esto puede tomar algunos segundos, puede seguir trabajando en la plataforma mientras sale la notificacion.
+Once it is ready, we will press the button and wait for the analysis to be completed correctly. This may take a few seconds, you can continue working on the platform while the notification comes out.
 
 <img src="Images/11.png Pendiente" width="1000">
 
 ### Test Eng/SI Button:
 
-Debido a que buscamos que esta aplicacion sea una aplicacion se uso internacional, colocamos un boton para cambiar de sistema ingles a sistema internacional de medida, para visualizar los datos de Altura, Peso y Temperatura en sus formatos correspondientes.
+Because we want this application to be an application for international use, we placed a button to change from the English system to the international measurement system, to view the Height, Weight and Temperature data in their corresponding formats.
 
-Cabe mencionar que esta fue una de las caracteristicas mas apreciadas por los sujetos de prueba en nuestro Alpha.
+It is worth mentioning that this was one of the characteristics most appreciated by the test subjects in our Alpha.
 
 | Eng System       | Int System    |
 | ---------------- | ------------- |
@@ -108,17 +107,17 @@ Cabe mencionar que esta fue una de las caracteristicas mas apreciadas por los su
 | Feet [ft]        | Meter [m]     |
 | Pound [lb]       | Kilogram [kg] |
 
-Ejemplo:
+Example:
 
 <img src="Images/3.gif" width="1000">
 
 ## Test Historical Tab:
 
-Para probar esta tab es necesario que entre al siguiente enlace.
+To test this tab it is necessary to enter the following link.
 
 https://react-deploy-monitor.azurewebsites.net/history
 
-En este caso para esta tab lo unico que tendremos que hacer sera seleccionar al paciente que queremos observar sus datos y empezar a navegar en el calendario.
+In this case, for this tab, the only thing we will have to do is select the patient we want to observe their data and start browsing the calendar.
 
 <img src="Images/4.gif" width="1000">
 
