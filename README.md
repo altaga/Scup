@@ -2,10 +2,6 @@
 
 Telemedicine smart platform with integration to IoT devices that provides vital signs in real-time.
 
-ReactJS IoT Component
-
-https://www.npmjs.com/package/azure-reactjs-iot-hub-receiver/v/1.0.4
-
 - [Smart-Check-up:](#smart-check-up)
 - [Introduction:](#introduction)
 - [Solution:](#solution)
