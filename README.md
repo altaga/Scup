@@ -4,7 +4,7 @@ Smart telemedicine platform, based on IoT devices that provide Vital signs and h
 Our current version consists of an Oxygen Saturation Thimble, an ECG sensor and a contactless Thermometer that can send real time information to a Teams application. This allowing distance consultations and follow ups to become more seamless and to grab a real biometrics and vital signs while doing them. 
 
 - [Smart-Check-up:](#smart-check-up)
-- [To Test the platform:](#test-the-platform)
+- [To Test the platform:](#to-test-the-platform)
   - [Test Monitor Tab:](#test-monitor-tab)
     - [Test IoT Devices:](#test-iot-devices)
     - [Test Summary SubTab:](#test-summary-subtab)
@@ -93,7 +93,7 @@ To red.
 
 Once it is ready, we will press the button and wait for the analysis to be completed correctly. This may take a few seconds, you can continue working on the platform while the notification comes out.
 
-<img src="Images/11.png Pendiente" width="1000">
+<img src="Images/5.gif" width="1000">
 
 ### Test Eng/SI Button:
 
