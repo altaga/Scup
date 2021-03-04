@@ -4,6 +4,7 @@ Smart telemedicine platform, based on IoT devices that provide Vital signs and h
 Our current version consists of an Oxygen Saturation Thimble, an ECG sensor and a contactless Thermometer that can send real time information to a Teams application. This allowing distance consultations and follow ups to become more seamless and to grab a real biometrics and vital signs while doing them. 
 
 - [Smart-Check-up:](#smart-check-up)
+      - [Of course, if you are a judge from Microsoft's Team apps Development Challenge from Devpost we are always open to do a LIVE TEST DEMO (naturally through Teams) of the product, just contact us through Devpost.](#of-course-if-you-are-a-judge-from-microsofts-team-apps-development-challenge-from-devpost-we-are-always-open-to-do-a-live-test-demo-naturally-through-teams-of-the-product-just-contact-us-through-devpost)
 - [To Test the platform:](#to-test-the-platform)
   - [Test Monitor Tab:](#test-monitor-tab)
     - [Test IoT Devices:](#test-iot-devices)
@@ -28,13 +29,13 @@ The application is divided into two sections, the monitor section and the histor
 
 In order to test the monitor, please enter the following link:
 
-https://react-deploy-monitor.azurewebsites.net/tabs
+https://scup.blankit.com.mx/tabs
 
 <img src="Images/1.png" width="1000">
 
 Because the application requires having the sensors in place, we created a simulator which allows us to simulate the three sensors on a real patient.
 
-https://react-deploy-monitor.azurewebsites.net/test
+https://scup.blankit.com.mx/test
 
 <img src="Images/2.png" width="1000">
 
@@ -117,7 +118,7 @@ Example:
 
 To test this tab it is necessary to enter the following link.
 
-https://react-deploy-monitor.azurewebsites.net/history
+https://scup.blankit.com.mx/history
 
 In this case, for this tab, the only thing we will have to do is select the patient we want to observe their data and start browsing the calendar.
 
