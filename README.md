@@ -16,6 +16,8 @@ Our current version consists of an Oxygen Saturation Thimble, an ECG sensor and 
   - [Test Historical Tab:](#test-historical-tab)
 - [Video Demo:](#video-demo)
 
+#### Of course, if you are a judge from Microsoft's Team apps Development Challenge from Devpost we are always open to do a LIVE TEST DEMO (naturally through Teams) of the product, just contact us through Devpost.
+
 # To Test the platform:
 
 ## Test Monitor Tab:
