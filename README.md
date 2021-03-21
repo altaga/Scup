@@ -1,3 +1,6 @@
+## This is the link the Microsoft store:https://teams.microsoft.com/l/app/65b266fb-1d9a-4b96-8e0c-9ccd2ea847cf
+
+
 # Smart-Check-up:
 
 Smart telemedicine platform, based on IoT devices that provide Vital signs and historical values. This to transform the way telemedicine is provided and solve the biggest problem in relation to distance check-ups, which is taking biometrics.
